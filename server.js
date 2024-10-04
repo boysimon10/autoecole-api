@@ -4,6 +4,8 @@ const app = express();
 const courseRoutes = require('./routes/course.routes');
 const globalQuizRoutes = require('./routes/globalQuiz.routes');
 const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
+const authMiddleware = require('./middleware/auth.middleware');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -18,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+app.use('/user', userRoutes);
 app.use('/auth', authRoutes)
 app.use('/courses', courseRoutes);
 app.use('/globalQuizzes', globalQuizRoutes);
