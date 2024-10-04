@@ -24,7 +24,12 @@ exports.register = async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ message: 'Utilisateur enregistré avec succès' });
+
+    const token = jwt.sign({ userId: user._id }, 'your_jwt_secret', {
+      expiresIn: '1d',
+    });
+
+    res.status(201).json({ token });
   } catch (error) {
     res.status(500).json({ message: 'Erreur serveur' });
   }
